@@ -1,0 +1,23 @@
+name: Deploy
+on:
+  push:
+    branches:
+    - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+      - name: Deploy
+        env:
+        HEROKU_API_KEY: ${{secrets.d0c0ad4a-511d-41ac-9f84-6f6564517f21}}
+      # Now you need to set the HEROKU_API_KEY for this Git Actions. First, go to your Heroku account and go
+      # to Account Settings .
+      # Scroll to the bottom until you see API Key. Copy this key and go to your project's repository on GitHub.
+      # Then in your GitHub Repo, go to Settings -> Secrets and click on "New Secret". Then enter
+      # HEROKU_API_KEY as the name and paste the copied API Key as the value.
+       HEROKU_APP_NAME: "yeagerkangchatbot" # Rename this to the app of your Heroku app.
+      run: git push -f
+https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git main
